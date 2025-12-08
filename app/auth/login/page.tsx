@@ -1,51 +1,49 @@
-import Crest from "../../../components/Crest";
+"use client";
+
+import Link from "next/link";
 
 export default function LoginPage() {
   return (
-    <div className="page-shell">
-      <div className="page-inner max-w-md mx-auto py-10 space-y-8">
-        <div className="flex flex-col items-center gap-3">
-          <Crest type="newton" size={72} />
-          <p className="text-[0.7rem] tracking-[0.24em] uppercase text-slate-400 text-center">
-            Access Portal
-          </p>
-          <h1 className="text-2xl font-bold text-slate-100 text-center">
-            Login
-          </h1>
-          <p className="text-xs text-slate-400 text-center max-w-sm">
-            Operator login access for existing ATILS accounts. Later this will
-            be wired into full auth.
-          </p>
-        </div>
+    <div className="page-shell max-w-md mx-auto py-10 space-y-8">
+      <div className="space-y-3 text-center">
+        <h1 className="text-3xl font-bold tracking-wide text-slate-100">
+          Operator Login
+        </h1>
+        <p className="text-slate-400 text-sm tracking-[0.24em] uppercase">
+          Access the ATILS Academy
+        </p>
+      </div>
 
-        <form className="space-y-4">
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">Email</label>
-            <input
-              type="email"
-              placeholder="you@operator.io"
-              className="w-full rounded-md border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none focus:border-sky-400"
-            />
-          </div>
+      {/* Login buttons (placeholders until auth is added) */}
+      <div className="space-y-4">
+        <button
+          className="w-full rounded-lg border border-slate-700 bg-slate-900/40 px-4 py-3 text-center hover:border-newton-500 transition"
+        >
+          Login with Email (Coming Soon)
+        </button>
 
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              className="w-full rounded-md border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none focus:border-sky-400"
-            />
-          </div>
+        <button
+          className="w-full rounded-lg border border-slate-700 bg-slate-900/40 px-4 py-3 text-center hover:border-newton-500 transition"
+        >
+          Login with Google (Coming Soon)
+        </button>
+      </div>
 
-          <button
-            type="button"
-            className="w-full rounded-md bg-sky-500 py-2.5 text-sm font-medium text-slate-950 shadow-glow-newton hover:bg-sky-400"
-          >
-            Login (stub)
-          </button>
-        </form>
+      {/* Navigation */}
+      <div className="space-y-4 text-center">
+        <Link
+          href="/auth/join"
+          className="block text-newton-accent underline opacity-80 hover:opacity-100 transition"
+        >
+          Need an account? Join the Academy →
+        </Link>
+
+        <Link
+          href="/"
+          className="block text-newton-accent underline opacity-80 hover:opacity-100 transition"
+        >
+          ← Back to home
+        </Link>
       </div>
     </div>
   );
