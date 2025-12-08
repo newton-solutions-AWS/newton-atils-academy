@@ -1,24 +1,55 @@
-import Image from "next/image";
+"use client";
+
+import { useUser } from "../../../components/context/UserProvider";
 import Link from "next/link";
-import AccessGate from "../../../components/access/AccessGate";
 
 export default function SentinelDivisionPage() {
-  return (
-    <AccessGate requireSentinelUpgrade fallback={
-      <div className="space-y-6">
-        <div className="rounded-2xl border border-cyan-500/40 bg-slate-900/40 p-6 text-sm shadow-lg shadow-cyan-500/20">
-          <h1 className="text-2xl font-bold text-cyan-300 mb-2">Sentinel Division – Upgrade Required</h1>
-          <p className="text-slate-300">
-            Sentinel Division is a premium cyber & coding upgrade stack.
-          </p>
-          <p className="mt-3 text-xs text-slate-400">
-            In the full build, this is where we&apos;ll connect Stripe or similar so
-            operators can unlock Sentinel, and your admin console will show who has access.
-          </p>
-        </div>
+  const { user } = useUser();
+
+  // Prevent crash if user not loaded yet
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-slate-300">
+        Loading user data...
       </div>
-    }>
-      {/* 🔹 your existing Sentinel JSX goes here unchanged */}
-    </AccessGate>
+    );
+  }
+
+  const isRestricted = !user.needs.sentinel; // UPDATED PROPERTY
+
+  return (
+    <div className="page-inner max-w-4xl mx-auto py-10 space-y-8">
+      <h1 className="text-3xl font-bold text-blue-400">🛡️ Sentinel Division</h1>
+
+      <div className="rounded-xl border border-blue-500/40 bg-blue-900/40 p-6 text-slate-300">
+        <p className="text-sm mb-3 tracking-tight uppercase">Sentinel Division</p>
+        <p className="opacity-80 mb-6">
+          Advanced Cyber & Coding Operator Access
+        </p>
+
+        {isRestricted ? (
+          <div className="text-red-400">
+            <p className="font-bold mb-1">ACCESS DENIED</p>
+            <p className="opacity-70">
+              Your account does not currently include Sentinel Division access.
+            </p>
+          </div>
+        ) : (
+          <div className="text-green-400">
+            <p className="font-bold mb-1">ACCESS GRANTED</p>
+            <p className="opacity-70">
+              Welcome to the Sentinel Division, Operator.
+            </p>
+          </div>
+        )}
+      </div>
+
+      <Link
+        href="/divisions"
+        className="block text-slate-400 hover:text-white underline text-sm"
+      >
+        ← Back to divisions
+      </Link>
+    </div>
   );
 }
