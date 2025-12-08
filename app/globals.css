@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================
+   Newton Option C Theme
+   =========================== */
+
+:root {
+  --newton-bg: #020617; /* deep navy */
+  --newton-surface: #020617;
+  --newton-surface-soft: #0b1220;
+  --newton-accent: #38bdf8; /* cyan / neon blue */
+  --newton-accent-soft: #0ea5e9;
+  --newton-gold: #facc15;
+  --newton-gold-soft: rgba(250, 204, 21, 0.14);
+  --newton-border: rgba(148, 163, 184, 0.35);
+  --newton-border-soft: rgba(30, 64, 175, 0.35);
+  --newton-text-main: #e5e7eb;
+}
+
+/* Global background */
+.bg-newton-deep {
+  background:
+    radial-gradient(circle at top left, #1e293b 0, #020617 40%, #000 100%);
+}
+
+/* Simple theme helpers */
+.text-newton-accent {
+  color: var(--newton-accent);
+}
+
+.text-newton-gold {
+  color: var(--newton-gold);
+}
+
+.bg-newton-card {
+  background:
+    radial-gradient(circle at top left, #0f172a 0, #020617 55%);
+}
+
+.border-newton-soft {
+  border-color: var(--newton-border);
+}
+
+/* Page layout helpers used in the app */
+
+.page-header {
+  margin-bottom: 1.75rem;
+}
+
+.page-header h1 {
+  letter-spacing: 0.12em;
+}
+
+/* Generic content shell for cards/sections if needed */
+.section-card {
+  border-radius: 1.25rem;
+  border: 1px solid var(--newton-border);
+  background:
+    radial-gradient(circle at top left, rgba(15, 23, 42, 0.95) 0, rgba(15, 23, 42, 0.7) 40%, rgba(2, 6, 23, 0.95) 100%);
+  box-shadow:
+    0 18px 55px rgba(15, 23, 42, 0.85),
+    0 0 0 1px rgba(15, 23, 42, 0.8);
+}
+
+/* Make text look a touch crisper on dark */
+body {
+  color: var(--newton-text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+}
+
+/* Small badge style – used for “Veteran built / Operator grade” etc */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--newton-border-soft);
+  background: rgba(15, 23, 42, 0.8);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
