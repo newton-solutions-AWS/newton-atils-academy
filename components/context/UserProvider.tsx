@@ -1,51 +1,41 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
-interface User {
-  name: string;
-  role: string;
-  veteranVerified: boolean;
-  sentinelUnlocked: boolean;
-  divisionsUnlocked: string[];
-  stats: {
-    xp: number;
-    rank: number;
-  };
-}
+const UserContext = createContext(null);
 
-interface UserContextType {
-  user: User;
-  refresh: () => void;
-}
-
-const UserContext = createContext<UserContextType | undefined>(undefined);
-
-export function UserProvider({ children }: { children: React.ReactNode }) {
-  // Mock user — will be replaced with live auth later
-  const [user, setUser] = useState<User>({
+export function UserProvider({ children }) {
+  // --- ELITE USER PROFILE ---
+  const [user, setUser] = useState({
     name: "Demo Operator",
     role: "operator",
-    veteranVerified: false,
-    sentinelUnlocked: false,
-    divisionsUnlocked: ["vanguard"],
+
     stats: {
-      xp: 420,
+      xp: 1200,
       rank: 2,
+    },
+
+    divisionsUnlocked: ["vanguard"],
+
+    // 🔥 NEW SYSTEM (required to fix Vercel errors)
+    needs: {
+      veteran: false,
+      phoenix: false,
+      sentinel: false,
     },
   });
 
-  const refresh = () => setUser({ ...user });
+  const refresh = () => {
+    console.log("Refresh user data… (stub)");
+  };
 
   return (
-    <UserContext.Provider value={{ user, refresh }}>
+    <UserContext.Provider value={{ user, setUser, refresh }}>
       {children}
     </UserContext.Provider>
   );
 }
 
 export function useUser() {
-  const ctx = useContext(UserContext);
-  if (!ctx) throw new Error("useUser must be used inside <UserProvider>");
-  return ctx;
+  return useContext(UserContext);
 }
