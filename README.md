@@ -1,36 +1,226 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+ATILS ACADEMY — Newton Solutions
 
-## Getting Started
+From Service to Cyber. Transform Learning Into Legacy.
 
-First, run the development server:
+<p align="center">
+  <img src="public/icons/crest-newton.png" width="120" />
+</p>
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🎖️ Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ATILS Academy is the elite, military-inspired, multi-cloud & cyber training platform built by Newton Solutions.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Designed for:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Veterans transitioning to tech
 
-## Learn More
+Civilians seeking elite cyber discipline
 
-To learn more about Next.js, take a look at the following resources:
+Operators who want structure, clarity, and mission-based mastery
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Built using:
 
-## Deploy on Vercel
+Next.js 13+ (App Router)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Typescript
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+TailwindCSS
+
+Lucide React
+
+Modular Division Framework
+
+Newton Solutions Crest System
+
+Oracle Assistant (Legacy Mode)
+
+
+This repository contains the complete, production-ready version of the platform’s foundation.
+
+
+---
+
+⚔️ Core Features (Live in This Build)
+
+🎛️ Operator Dashboard
+
+Dynamic XP progression
+
+Rank advancement
+
+Unlockable Divisions
+
+Access status overview
+
+Veteran verification framework
+
+Sentinel upgrade indicators
+
+
+
+---
+
+🛡️ Division System
+
+Each division has its own lore, crest, access rules, and mission identity:
+
+Division	Purpose	Access
+
+Vanguard Division	Core Cloud Architecture mastery	Open to all Operators
+Phoenix Division	Veteran-exclusive access portal	Verification required
+Sentinel Division	Cyber, Red Team, Blue Team, Coding Ops	Paid / Upgrade tier
+
+
+
+---
+
+🧠 Oracle Assistant
+
+Fully integrated AI support:
+
+Lesson navigation
+
+Mission help
+
+Tactical instructions
+
+Operator progression tracking
+
+Multi-mode interface
+
+
+
+---
+
+🔐 Access Control Infrastructure
+
+Modular system supporting:
+
+Veteran status
+
+Paid tiers
+
+Role-based access
+
+Division locks / unlocks
+
+
+Everything is wired through the UserProvider for maximum scalability.
+
+
+---
+
+📁 Project Structure
+
+root/
+│── app/
+│   ├── dashboard/
+│   ├── divisions/
+│   ├── lessons/
+│   ├── layout.tsx
+│   └── page.tsx
+│
+│── components/
+│   ├── access/
+│   ├── context/
+│   ├── ui/
+│   └── OracleAssistant.tsx
+│
+│── public/
+│   └── icons/
+│       ├── crest-newton.png
+│       ├── crest-phoenix.png
+│       └── crest-sentinel.png
+│
+└── tailwind.config.ts
+
+
+---
+
+🧩 Tech Stack
+
+Next.js
+
+React
+
+TypeScript
+
+TailwindCSS
+
+Lucide Icons
+
+Context API
+
+Modular Component Architecture
+
+Military-grade UI styling
+
+
+
+---
+
+🚀 Upcoming Features
+
+(Automatically integrated via Master Blueprint)
+
+🔥 Phase 2 — Operator Progression Engine
+
+XP missions
+
+Rank unlock system
+
+Skill Tree
+
+Operator dossiers
+
+Platoon & Battle Buddy features
+
+
+🔥 Phase 3 — Lessons Engine 2.0
+
+Track/Slug dynamic learning
+
+AI-generated lessons with Oracle
+
+Difficulty scaling
+
+Progress saving
+
+
+🔥 Phase 4 — Division Command Centers
+
+Vanguard War Room
+
+Phoenix Veteran Hub
+
+Sentinel Ops Console
+
+
+🔥 Phase 5 — Certificates + Portfolio Export
+
+Auto-generated certificates
+
+Operator portfolio builder
+
+Project evidence export system
+
+
+
+---
+
+🏛️ Newton Solutions Creed
+
+“Knowledge must be earned. Legacy must be built. Operators rise.”
+
+
+
+
+
+---
+
+👑 Founder
+
+Matthew Newton — British Army Veteran
+Creator of Newton Solutions
