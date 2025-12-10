@@ -3,63 +3,37 @@
 import { useUser } from "../../components/context/UserProvider";
 
 export default function DashboardPage() {
-  const { user, refresh } = useUser();
+  const { user } = useUser(); // ✅ No refresh() call anymore
 
-  // SAFETY FALLBACK — prevents Vercel build errors
-  const safeUser = user ?? {
-    name: "Operator",
-    role: "operator",
-    stats: { xp: 0, rank: 1 },
-    divisionsUnlocked: {
-      vanguard: true,
-      sentinel: false,
-      phoenix: false,
-    },
-  };
-
-  const { name, stats, divisionsUnlocked } = safeUser;
+  // If user is null, show loading or fallback
+  if (!user) {
+    return (
+      <div className="text-center py-10 text-slate-300">
+        Loading operator profile…
+      </div>
+    );
+  }
 
   const rankNames = ["Recruit", "Initiate", "Operator", "Specialist", "Vanguard Elite"];
-  const currentRank = rankNames[stats.rank] ?? "Operator";
+  const currentRank = rankNames[user.stats?.rank || 0];
 
   return (
     <div className="page-inner max-w-4xl mx-auto py-10 space-y-8">
-      <h1 className="text-4xl font-bold tracking-tight text-slate-100">
-        Welcome back, {name}
-      </h1>
+      <h1 className="text-4xl font-bold text-newton-accent">Operator Dashboard</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        {/* XP CARD */}
-        <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-6 shadow-lg">
-          <p className="text-slate-400 text-sm">Experience Points</p>
-          <p className="text-3xl font-bold text-blue-300 mt-1">{stats.xp}</p>
-        </div>
+      <div className="rounded-xl bg-slate-900/40 border border-slate-700 p-6 space-y-4">
+        <p className="text-xl text-slate-200">
+          Welcome back, <span className="font-bold">{user.name}</span>
+        </p>
 
-        {/* RANK CARD */}
-        <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-6 shadow-lg">
-          <p className="text-slate-400 text-sm">Rank</p>
-          <p className="text-3xl font-bold text-amber-300 mt-1">{currentRank}</p>
-        </div>
+        <p className="text-slate-300">
+          Rank: <span className="font-semibold text-newton-accent">{currentRank}</span>
+        </p>
 
-        {/* DIVISION STATUS */}
-        <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-6 shadow-lg">
-          <p className="text-slate-400 text-sm">Division Access</p>
-          <ul className="mt-2 space-y-1 text-slate-300">
-            <li>Vanguard: {divisionsUnlocked.vanguard ? "✔️" : "❌"}</li>
-            <li>Sentinel: {divisionsUnlocked.sentinel ? "✔️" : "❌"}</li>
-            <li>Phoenix: {divisionsUnlocked.phoenix ? "✔️" : "❌"}</li>
-          </ul>
-        </div>
-
+        <p className="text-slate-300">
+          XP: <span className="font-semibold">{user.stats?.xp || 0}</span>
+        </p>
       </div>
-
-      <button
-        onClick={refresh}
-        className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow"
-      >
-        Refresh Data
-      </button>
     </div>
   );
 }
