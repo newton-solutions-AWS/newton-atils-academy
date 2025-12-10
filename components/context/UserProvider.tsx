@@ -1,41 +1,67 @@
+// components/context/UserProvider.tsx
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+} from "react";
 
-const UserContext = createContext(null);
+export type DivisionAccess = {
+  sentinel: boolean;
+  vanguard: boolean;
+  phoenixPortal: boolean;
+};
 
-export function UserProvider({ children }) {
-  // --- ELITE USER PROFILE ---
-  const [user, setUser] = useState({
-    name: "Demo Operator",
-    role: "operator",
-
-    stats: {
-      xp: 1200,
-      rank: 2,
-    },
-
-    divisionsUnlocked: ["vanguard"],
-
-    // 🔥 NEW SYSTEM (required to fix Vercel errors)
-    needs: {
-      veteran: false,
-      phoenix: false,
-      sentinel: false,
-    },
-  });
-
-  const refresh = () => {
-    console.log("Refresh user data… (stub)");
+export type User = {
+  name: string;
+  role: "civilian" | "veteran" | "founder";
+  isVeteran: boolean;
+  stats: {
+    xp: number;
+    rank: number; // 1,2,3 etc
   };
+  divisions: DivisionAccess;
+};
+
+// ✅ You can change this later (e.g. make this a veteran/founder)
+const defaultUser: User = {
+  name: "Demo Operator",
+  role: "civilian",
+  isVeteran: false,
+  stats: {
+    xp: 1200,
+    rank: 2, // Sentinel unlocked, Vanguard locked (by our rules)
+  },
+  divisions: {
+    sentinel: true,
+    vanguard: false,
+    phoenixPortal: false,
+  },
+};
+
+type UserContextValue = {
+  user: User;
+  setUser: (u: User) => void;
+};
+
+const UserContext = createContext<UserContextValue | null>(null);
+
+export function UserProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User>(defaultUser);
 
   return (
-    <UserContext.Provider value={{ user, setUser, refresh }}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
   );
 }
 
 export function useUser() {
-  return useContext(UserContext);
+  const ctx = useContext(UserContext);
+  if (!ctx) {
+    throw new Error("useUser must be used within a UserProvider");
+  }
+  return ctx;
 }

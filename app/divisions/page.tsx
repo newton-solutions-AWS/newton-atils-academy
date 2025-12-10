@@ -1,97 +1,100 @@
-import Image from "next/image";
+// app/divisions/page.tsx
 import Link from "next/link";
+import Image from "next/image";
 
-export default function DivisionsHub() {
-  const divisions = [
-    {
-      id: "vanguard",
-      title: "Vanguard Division",
-      subtitle: "Core Operator Path",
-      desc: "The main multi-cloud, DevOps and security pipeline. Start your operator journey here.",
-      crest: "/icons/crest-newton.png",
-      glow: "drop-shadow-[0_0_25px_rgba(56,189,248,0.8)]",
-      border: "border-sky-500/40",
-      href: "/divisions/vanguard",
-    },
-    {
-      id: "phoenix",
-      title: "Phoenix Division",
-      subtitle: "Veteran Honour Portal",
-      desc: "Dedicated veteran access route. Honouring service, elevating capability.",
-      crest: "/icons/crest-phoenix.png",
-      glow: "drop-shadow-[0_0_25px_rgba(245,158,11,0.85)]",
-      border: "border-amber-500/40",
-      href: "/divisions/phoenix",
-    },
-    {
-      id: "sentinel",
-      title: "Sentinel Division",
-      subtitle: "Cyber & Coding Ops",
-      desc: "Advanced cyber, coding, automation and operator-grade digital warfare skills.",
-      crest: "/icons/crest-sentinel.png",
-      glow: "drop-shadow-[0_0_25px_rgba(34,211,238,0.8)]",
-      border: "border-cyan-500/40",
-      href: "/divisions/sentinel",
-    },
-  ];
+const divisions = [
+  {
+    id: "vanguard",
+    name: "Vanguard Division",
+    crest: "/icons/crest-newton.png",
+    tone: "Core Operator Path",
+    description:
+      "The main multi-cloud, DevSecOps and architecture pipeline. Shape your operator journey here.",
+    accentClass: "from-sky-500/60 to-blue-500/40",
+  },
+  {
+    id: "phoenix",
+    name: "Phoenix Division",
+    crest: "/icons/crest-phoenix.png",
+    tone: "Veteran Honour Portal",
+    description:
+      "Curated veteran pathway and transition support for serving and former service leavers.",
+    accentClass: "from-amber-500/70 to-orange-500/40",
+  },
+  {
+    id: "sentinel",
+    name: "Sentinel Division",
+    crest: "/icons/crest-sentinel.png",
+    tone: "Cyber & Coding Ops",
+    description:
+      "Advanced security, red/blue teaming concepts and coding labs layered on top of the core academy.",
+    accentClass: "from-emerald-500/70 to-teal-500/40",
+  },
+] as const;
 
+export default function DivisionsPage() {
   return (
-    <div className="space-y-12">
-
-      {/* HERO HEADER */}
-      <div className="rounded-3xl border border-slate-800/70 bg-gradient-to-br from-slate-900/80 via-slate-900/40 to-slate-900/10 p-10 shadow-xl shadow-slate-950/40">
-        <h1 className="text-4xl font-bold text-slate-100 tracking-tight">
-          Divisions
-        </h1>
-        <p className="mt-3 max-w-2xl text-sm text-slate-400">
-          Select your operational pathway. Each division represents a unique mission
-          within the ATILS Academy — crafted to fit your background, goals and operator
-          mindset.
+    <div className="page-shell space-y-10">
+      <header className="space-y-3">
+        <p className="text-xs font-semibold tracking-[0.3em] text-newton-accent">
+          DIVISION SELECT
         </p>
-      </div>
+        <h1 className="text-3xl font-bold text-slate-100">
+          Choose Your Operator Division
+        </h1>
+        <p className="max-w-2xl text-sm text-slate-400">
+          Select your operational pathway. Each division reinforces the same
+          core ATILS Academy, but with unique mission focus and culture
+          overlays crafted to your background and operator mindset.
+        </p>
+      </header>
 
-      {/* DIVISION CARDS */}
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {divisions.map((d) => (
-          <Link href={d.href} key={d.id}>
-            <div
-              className={`group relative rounded-2xl border ${d.border} bg-slate-900/40 p-6 shadow-lg shadow-slate-950/40 transition hover:bg-slate-900/70 hover:shadow-${d.id}`}
-            >
-              {/* Crest */}
-              <div className="relative h-16 w-16 mx-auto mb-4">
+      <section className="grid gap-6 lg:grid-cols-3">
+        {divisions.map((division) => (
+          <Link
+            key={division.id}
+            href={`/divisions/${division.id}`}
+            className="group block rounded-2xl border border-slate-800/80 bg-slate-900/40 p-6 shadow-lg shadow-black/40 transition hover:-translate-y-1 hover:border-slate-500/80 hover:bg-slate-900/80"
+          >
+            <div className="flex items-center gap-4">
+              <div className="relative h-12 w-12 overflow-hidden rounded-xl bg-slate-950/70">
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${division.accentClass} opacity-70`}
+                />
                 <Image
-                  src={d.crest}
-                  alt={`${d.title} Crest`}
-                  fill
-                  className={`object-contain mx-auto ${d.glow} transition-transform group-hover:scale-110`}
+                  src={division.crest}
+                  alt={`${division.name} Crest`}
+                  width={48}
+                  height={48}
+                  className="relative z-10 h-12 w-12 object-contain"
                 />
               </div>
-
-              {/* Text */}
-              <h2 className="text-xl font-semibold text-slate-100 text-center">
-                {d.title}
-              </h2>
-              <p className="mt-1 text-sm text-slate-400 text-center">{d.subtitle}</p>
-
-              <p className="mt-3 text-xs text-slate-500 leading-relaxed text-center">
-                {d.desc}
-              </p>
-
-              {/* Button */}
-              <div className="mt-5 text-center">
-                <span className="inline-block rounded-full border border-slate-700 bg-slate-900/60 px-4 py-1 text-xs font-semibold text-slate-300 tracking-wide group-hover:border-sky-300">
-                  Enter Division →
-                </span>
+              <div className="flex-1">
+                <h2 className="text-lg font-semibold text-slate-50">
+                  {division.name}
+                </h2>
+                <p className="text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
+                  {division.tone}
+                </p>
               </div>
+            </div>
+
+            <p className="mt-4 text-sm text-slate-300">
+              {division.description}
+            </p>
+
+            <div className="mt-5 flex items-center justify-between text-[11px] text-slate-400">
+              <span className="rounded-full border border-slate-700/80 px-3 py-1 font-semibold uppercase tracking-[0.2em] text-slate-300">
+                Enter Division
+              </span>
+              <span className="opacity-70 group-hover:opacity-100">
+                Phoenix · Sentinel · Vanguard — you&apos;ll future-proof the
+                operator either way.
+              </span>
             </div>
           </Link>
         ))}
-      </div>
-
-      {/* FOOTER */}
-      <p className="text-center text-xs text-slate-500">
-        Phoenix · Sentinel · Vanguard — Choose Your Path of the Operator.
-      </p>
+      </section>
     </div>
   );
 }
