@@ -1,22 +1,21 @@
 "use client";
 
 import { ReactNode } from "react";
-import { useUser } from "../context/UserProvider";
-import SentinelPaywall from "../paywall/SentinelPaywall";
+import { useUser } from "@/components/context/UserProvider";
+import SentinelPaywall from "@/components/paywall/SentinelPaywall";
 
-type RequiredAccess = "VANGUARD" | "SENTINEL" | "PHOENIX";
+export type RequiredAccess = "sentinel" | "vanguard" | "phoenix";
 
-export default function AccessGate({
-  required,
-  children,
-}: {
+interface AccessGateProps {
   required: RequiredAccess;
   children: ReactNode;
-}) {
+}
+
+export default function AccessGate({ required, children }: AccessGateProps) {
   const { user } = useUser();
 
-  // Not logged in
-  if (!user || !user) {
+  // 1️⃣ Not logged in
+  if (!user) {
     return (
       <div className="p-6 text-center text-slate-400">
         🔒 Please log in to continue.
@@ -24,32 +23,30 @@ export default function AccessGate({
     );
   }
 
-  // Founder override
+  // 2️⃣ Founder override (YOU)
   if (user.role === "founder") {
     return <>{children}</>;
   }
 
-  // Phoenix override
-  if (user.divisions.phoenixPortal) {
+  // 3️⃣ Phoenix Portal (veterans get everything)
+  if (required === "phoenix" && user.isVeteran) {
     return <>{children}</>;
   }
 
-  // Sentinel paywall
-  if (required === "SENTINEL" && !user.divisions.sentinel) {
+  // 4️⃣ Sentinel paywall
+  if (required === "sentinel" && !user.divisions.sentinel) {
     return <SentinelPaywall />;
   }
 
-  // Vanguard access (Sentinel can also view Vanguard)
-  if (
-    required === "VANGUARD" &&
-    (user.divisions.vanguard || user.divisions.sentinel)
-  ) {
-    return <>{children}</>;
+  // 5️⃣ Vanguard access
+  if (required === "vanguard" && !user.divisions.vanguard) {
+    return (
+      <div className="p-6 text-center text-red-400">
+        🚫 Vanguard access required.
+      </div>
+    );
   }
 
-  return (
-    <div className="p-6 text-center text-red-400">
-      🚫 Access denied — insufficient clearance.
-    </div>
-  );
+  // 6️⃣ Access granted
+  return <>{children}</>;
 }
