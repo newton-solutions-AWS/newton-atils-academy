@@ -5,7 +5,7 @@ import AccessGate from "../../../components/access/AccessGate";
 
 export default function PhoenixPortalPage() {
   return (
-    <AccessGate required="PHOENIX">
+    <AccessGate required="phoenixPortal">
       <div className="page-shell space-y-6">
         <header className="space-y-2">
           <p className="text-xs font-semibold tracking-[0.3em] text-amber-400">

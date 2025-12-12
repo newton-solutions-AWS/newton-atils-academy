@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { useUser } from "@/components/context/UserProvider";
 import SentinelPaywall from "@/components/paywall/SentinelPaywall";
 
-export type RequiredAccess = "sentinel" | "vanguard" | "phoenix";
+export type RequiredAccess = "sentinel" | "vanguard" | "phoenixPortal";
 
 interface AccessGateProps {
   required: RequiredAccess;
@@ -29,7 +29,7 @@ export default function AccessGate({ required, children }: AccessGateProps) {
   }
 
   // 3️⃣ Phoenix Portal (veterans get everything)
-  if (required === "phoenix" && user.isVeteran) {
+  if (required === "phoenixPortal" && user.isVeteran) {
     return <>{children}</>;
   }
 

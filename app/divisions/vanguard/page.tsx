@@ -5,7 +5,7 @@ import AccessGate from "../../../components/access/AccessGate";
 
 export default function VanguardDivisionPage() {
   return (
-    <AccessGate required="VANGUARD">
+    <AccessGate required="vanguard">
       <div className="page-shell space-y-6">
         <header className="space-y-2">
           <p className="text-xs font-semibold tracking-[0.3em] text-sky-400">
