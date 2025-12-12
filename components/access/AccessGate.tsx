@@ -1,21 +1,25 @@
 "use client";
 
 import { ReactNode } from "react";
-import { useUser } from "@/components/context/UserProvider";
-import SentinelPaywall from "@/components/paywall/SentinelPaywall";
+import { useUser } from "../context/UserProvider";
+import SentinelPaywall from "../../components/paywall/SentinelPaywall";
 
-export type RequiredAccess = "sentinel" | "vanguard" | "phoenixPortal";
+export type RequiredAccess =
+  | "vanguard"
+  | "sentinel"
+  | "phoenixPortal";
 
-interface AccessGateProps {
+export default function AccessGate({
+  required,
+  children,
+}: {
   required: RequiredAccess;
   children: ReactNode;
-}
-
-export default function AccessGate({ required, children }: AccessGateProps) {
+}) {
   const { user } = useUser();
 
-  // 1️⃣ Not logged in
-  if (!user) {
+  // 🔐 Not logged in
+  if (!user || !user.isAuthenticated) {
     return (
       <div className="p-6 text-center text-slate-400">
         🔒 Please log in to continue.
@@ -23,30 +27,24 @@ export default function AccessGate({ required, children }: AccessGateProps) {
     );
   }
 
-  // 2️⃣ Founder override (YOU)
+  // 👑 Founder override
   if (user.role === "founder") {
     return <>{children}</>;
   }
 
-  // 3️⃣ Phoenix Portal (veterans get everything)
-  if (required === "phoenixPortal" && user.isVeteran) {
-    return <>{children}</>;
-  }
-
-  // 4️⃣ Sentinel paywall
-  if (required === "sentinel" && !user.divisions.sentinel) {
+  // 🔥 Sentinel paywall
+  if (required === "sentinel" && !user.sentinelUnlocked) {
     return <SentinelPaywall />;
   }
 
-  // 5️⃣ Vanguard access
-  if (required === "vanguard" && !user.divisions.vanguard) {
+  // 🚫 Division locked
+  if (!user.divisions[required]) {
     return (
       <div className="p-6 text-center text-red-400">
-        🚫 Vanguard access required.
+        ⛔ Access denied — insufficient clearance.
       </div>
     );
   }
 
-  // 6️⃣ Access granted
   return <>{children}</>;
 }

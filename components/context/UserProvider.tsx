@@ -1,4 +1,3 @@
-// components/context/UserProvider.tsx
 "use client";
 
 import {
@@ -8,9 +7,11 @@ import {
   ReactNode,
 } from "react";
 
+/* ---------------- TYPES ---------------- */
+
 export type DivisionAccess = {
-  sentinel: boolean;
   vanguard: boolean;
+  sentinel: boolean;
   phoenixPortal: boolean;
 };
 
@@ -18,33 +19,46 @@ export type User = {
   name: string;
   role: "civilian" | "veteran" | "founder";
   isVeteran: boolean;
+  isAuthenticated: boolean;
+
+  sentinelUnlocked: boolean; // 💳 PAYWALL SWITCH
+
   stats: {
     xp: number;
-    rank: number; // 1,2,3 etc
+    rank: number;
   };
+
   divisions: DivisionAccess;
 };
 
-// ✅ You can change this later (e.g. make this a veteran/founder)
+type UserContextValue = {
+  user: User | null;
+  setUser: (u: User) => void;
+};
+
+/* ---------------- DEFAULT USER ---------------- */
+
 const defaultUser: User = {
   name: "Demo Operator",
-  role: "civilian",
-  isVeteran: false,
+  role: "founder", // ← you
+  isVeteran: true,
+  isAuthenticated: true,
+
+  sentinelUnlocked: true, // ✅ founder bypass
+
   stats: {
     xp: 1200,
-    rank: 2, // Sentinel unlocked, Vanguard locked (by our rules)
+    rank: 2,
   },
+
   divisions: {
+    vanguard: true,
     sentinel: true,
-    vanguard: false,
-    phoenixPortal: false,
+    phoenixPortal: true,
   },
 };
 
-type UserContextValue = {
-  user: User;
-  setUser: (u: User) => void;
-};
+/* ---------------- CONTEXT ---------------- */
 
 const UserContext = createContext<UserContextValue | null>(null);
 
@@ -61,7 +75,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 export function useUser() {
   const ctx = useContext(UserContext);
   if (!ctx) {
-    throw new Error("useUser must be used within a UserProvider");
+    throw new Error("useUser must be used within UserProvider");
   }
   return ctx;
 }

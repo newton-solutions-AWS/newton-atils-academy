@@ -2,28 +2,28 @@
 
 export default function SentinelPaywall() {
   return (
-    <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-8 text-center">
+    <div className="p-10 text-center space-y-4">
       <h2 className="text-2xl font-bold text-slate-100">
-        🔒 Sentinel Division Locked
+        Sentinel Division Locked
       </h2>
 
-      <p className="mt-3 text-slate-400">
-        Advanced operations, red/blue team labs, and elite content.
-        Upgrade to unlock Sentinel Division.
+      <p className="text-slate-400 max-w-xl mx-auto">
+        Sentinel Division contains advanced offensive & defensive cyber
+        operations, red team tooling, and specialist labs.
       </p>
 
-      <button
-        className="mt-6 inline-flex items-center justify-center rounded-lg
-                   bg-newton-accent px-6 py-3 font-semibold text-black
-                   hover:bg-newton-accent/90 transition"
-        onClick={() => alert("Stripe coming next 🔥")}
-      >
-        Unlock Sentinel
-      </button>
+      <div className="rounded-xl border border-slate-700 bg-slate-900/50 p-6">
+        <p className="text-sm text-slate-300">
+          Upgrade required to unlock Sentinel access.
+        </p>
 
-      <p className="mt-4 text-xs text-slate-500">
-        Phoenix Division members already have access.
-      </p>
+        <button
+          disabled
+          className="mt-4 px-6 py-2 rounded-lg bg-amber-500/20 text-amber-400 cursor-not-allowed"
+        >
+          Upgrade (Coming Soon)
+        </button>
+      </div>
     </div>
   );
 }
