@@ -5,7 +5,7 @@ import AccessGate from "../../../components/access/AccessGate";
 
 export default function SentinelDivisionPage() {
   return (
-    <AccessGate require="sentinel">
+    <AccessGate required="SENTINEL">
       <div className="page-shell space-y-6">
         <header className="space-y-2">
           <p className="text-xs font-semibold tracking-[0.3em] text-emerald-400">

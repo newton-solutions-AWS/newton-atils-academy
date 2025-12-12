@@ -1,25 +1,52 @@
-// components/access/AccessGate.tsx
 "use client";
 
 import { ReactNode } from "react";
 import { useUser } from "../context/UserProvider";
-import AccessStatusPanel from "./AccessStatusPanel";
 
-type DivisionKey = "sentinel" | "vanguard" | "phoenixPortal";
+type RequiredAccess = "VANGUARD" | "SENTINEL" | "PHOENIX";
 
-interface AccessGateProps {
-  require: DivisionKey;
+export default function AccessGate({
+  required,
+  children,
+}: {
+  required: RequiredAccess;
   children: ReactNode;
-}
-
-export default function AccessGate({ require, children }: AccessGateProps) {
+}) {
   const { user } = useUser();
 
-  const hasAccess = user.divisions[require] === true;
-
-  if (!hasAccess) {
-    return <AccessStatusPanel target={require} />;
+  // Not logged in
+  if (!user) {
+    return (
+      <div className="p-6 text-center text-slate-400">
+        🔒 Please log in to continue.
+      </div>
+    );
   }
 
-  return <>{children}</>;
+  // Phoenix override (god mode)
+  if (user.divisions.phoenixPortal) {
+    return <>{children}</>;
+  }
+
+  // Sentinel logic
+  if (
+    required === "SENTINEL" &&
+    user.divisions.sentinel
+  ) {
+    return <>{children}</>;
+  }
+
+  // Vanguard logic
+  if (
+    required === "VANGUARD" &&
+    (user.divisions.vanguard || user.divisions.sentinel)
+  ) {
+    return <>{children}</>;
+  }
+
+  return (
+    <div className="p-6 text-center text-red-400">
+      🚫 Access denied — insufficient clearance.
+    </div>
+  );
 }
