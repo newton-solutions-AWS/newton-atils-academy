@@ -1,7 +1,7 @@
-import "./globals.css";
-import NavBar from "../components/ui/NavBar";
-import MobileNav from "../components/ui/MobileNav";
-import { UserProvider } from "../components/context/UserProvider";
+import "@/app/globals.css";
+import NavBar from "@/components/ui/NavBar";
+import MobileNav from "@/components/ui/MobileNav";
+import { UserProvider } from "@/components/context/UserProvider";
 
 export const metadata = {
   title: "ATILS Academy | Newton Solutions",
