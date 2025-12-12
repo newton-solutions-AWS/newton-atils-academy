@@ -2,13 +2,18 @@ import "@/app/globals.css";
 import NavBar from "@/components/ui/NavBar";
 import MobileNav from "@/components/ui/MobileNav";
 import { UserProvider } from "@/components/context/UserProvider";
+import type { ReactNode } from "react";
 
 export const metadata = {
   title: "ATILS Academy | Newton Solutions",
   description: "Elite multi-division cyber academy by Newton Solutions.",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <html lang="en">
       <body className="min-h-screen bg-slate-950 text-slate-200 antialiased">
@@ -24,9 +29,7 @@ export default function RootLayout({ children }) {
           </div>
 
           {/* PAGE CONTENT */}
-          <main className="px-4 md:px-8 pt-6 pb-20">
-            {children}
-          </main>
+          <main>{children}</main>
         </UserProvider>
       </body>
     </html>
