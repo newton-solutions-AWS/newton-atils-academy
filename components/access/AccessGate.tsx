@@ -1,13 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { useUser } from "../context/UserProvider";
-import SentinelPaywall from "../../components/paywall/SentinelPaywall";
-
-export type RequiredAccess =
-  | "vanguard"
-  | "sentinel"
-  | "phoenixPortal";
+import { RequiredAccess } from "./types";
 
 export default function AccessGate({
   required,
@@ -16,32 +10,13 @@ export default function AccessGate({
   required: RequiredAccess;
   children: ReactNode;
 }) {
-  const { user } = useUser();
+  // TEMP: allow all (we’ll lock later)
+  const hasAccess = true;
 
-  // 🔐 Not logged in
-  if (!user || !user.isAuthenticated) {
-    return (
-      <div className="p-6 text-center text-slate-400">
-        🔒 Please log in to continue.
-      </div>
-    );
-  }
-
-  // 👑 Founder override
-  if (user.role === "founder") {
-    return <>{children}</>;
-  }
-
-  // 🔥 Sentinel paywall
-  if (required === "sentinel" && !user.sentinelUnlocked) {
-    return <SentinelPaywall />;
-  }
-
-  // 🚫 Division locked
-  if (!user.divisions[required]) {
+  if (!hasAccess) {
     return (
       <div className="p-6 text-center text-red-400">
-        ⛔ Access denied — insufficient clearance.
+        Access denied – insufficient clearance.
       </div>
     );
   }
