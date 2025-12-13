@@ -1,16 +1,14 @@
-// app/lessons/[track]/[lesson]/page.tsx
+"use client";
+
 import AccessGate from "@/components/access/AccessGate";
 
-interface PageProps {
-  params: Promise<{
-    track: string;
-    lesson: string;
-  }>;
-}
-
-export default async function LessonPage({ params }: PageProps) {
-  const { track, lesson } = await params;
-
+export default function LessonPageClient({
+  track,
+  lesson,
+}: {
+  track: string;
+  lesson: string;
+}) {
   return (
     <AccessGate required={track}>
       <div className="page-shell space-y-6">
@@ -18,17 +16,18 @@ export default async function LessonPage({ params }: PageProps) {
           <p className="text-xs font-semibold tracking-[0.3em] text-slate-400">
             {track.toUpperCase()} DIVISION
           </p>
-          <h1 className="text-3xl font-bold text-slate-100">
-            Lesson: {lesson}
-          </h1>
+          <h1 className="text-3xl font-bold text-slate-100">Lesson: {lesson}</h1>
         </header>
 
         <div className="max-w-2xl text-slate-300 space-y-4">
           <p>This lesson is being dynamically rendered.</p>
+          <p><strong>Track:</strong> {track}</p>
+          <p><strong>Lesson ID:</strong> {lesson}</p>
+
           <ul className="list-disc ml-5 space-y-1">
             <li>Dynamic routing works</li>
-            <li>AccessGate enforced</li>
-            <li>Next.js 15+ compliant</li>
+            <li>AccessGate is enforced</li>
+            <li>Lesson engine scales infinitely</li>
           </ul>
         </div>
 
